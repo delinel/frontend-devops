@@ -1,0 +1,32 @@
+{#include base.html}
+    {#body}
+        <div class="card-body">
+            <h3 style="text-align:center">Propositions d'améliorations pour les prochains talks </h3>
+            {#if listProposal.empty }
+                <p  style="text-align:center"> Aucune proposition enregistrée pour le moment!
+                <p>
+            {#else}
+                <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date et heure</th>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">propositions</th>
+                        </tr>
+                    </thead>
+                <tbody>
+                    {#for proposal in listProposal}
+                        <tr>
+                            <td>{proposal.dateTime}</td>
+                            <td>{proposal.firstName}</td>
+                            <td>{proposal.messageText}</td>
+                        </tr>
+                    {/for}
+                </tbody>
+                </table>
+                </div>
+            {/if}
+        </div>
+    {/body}
+{/include}
