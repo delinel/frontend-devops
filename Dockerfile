@@ -9,7 +9,7 @@ LABEL owner=delinel
 WORKDIR /myfront-app
 
 # Copie du projet dans le repetoire de travail
-COPY -R ./frontend-devops  /myfront-app
+COPY ./frontend-devops  /myfront-app
 
 RUN mvn clean package
 
