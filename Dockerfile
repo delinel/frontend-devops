@@ -2,7 +2,7 @@
 FROM maven:3-openjdk-17
 
 # Labels
-LABEL version=v24.8.1
+LABEL version=v24.8.2
 LABEL owner=delinel
 
 # Répertoire de travail
