@@ -8,8 +8,7 @@ LABEL owner=delinel
 # Répertoire de travail
 WORKDIR /myfront-app
 
-# Copier le snaphot.jar dans le repertoire de travail et le renommer en code-frontend.jar
-#COPY /projects/github/depot/mkutano-frontend/  /myfront-app/frontend
+# Copie du projet dans le repetoire de travail
 COPY -R ./frontend-devops  /myfront-app
 
 RUN mvn clean package
@@ -17,5 +16,5 @@ RUN mvn clean package
 # Exposer le port de l'application
 EXPOSE 8080
 
-# Démarrer l'application
-ENTRYPOINT ["java", "-jar", "target/quarkus-app/quarkus-run.jar"]
+# Démarrage de l'application
+ENTRYPOINT ["java", "-jar", "./target/quarkus-app/quarkus-run.jar"]
