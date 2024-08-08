@@ -9,9 +9,9 @@ LABEL owner=delinel
 WORKDIR /myfront-app
 
 # Copie du projet dans le repetoire de travail
-COPY ./frontend-devops  /myfront-app
+COPY .  /myfront-app
 
-RUN mvn clean package
+RUN mvn package
 
 # Exposer le port de l'application
 EXPOSE 8080
