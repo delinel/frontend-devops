@@ -1,0 +1,65 @@
+# this file is meant for Docker Swarm stacks only
+# trying it in compose will fail because of multiple replicas trying to bind to the same port
+# Swarm currently does not support Compose Spec, so we'll pin to the older version 3.9
+
+version: "3.9"
+
+services:
+
+  redis:
+    image: redis:3.2
+    networks:
+      - front_end_ntw
+    deploy:
+      replicas: 5
+
+  db:
+    image: postgres:9.4
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - back_end_ntw
+    deploy:
+      replicas: 1
+
+  vote:
+    image: dockersamples/examplevotingapp_vote:before
+    ports:
+      - 5000:80
+    networks:
+      - front_end_ntw
+    deploy:
+      replicas: 5
+
+  result:
+    image: dockersamples/examplevotingapp_result:before
+    ports:
+      - 5001:80
+    networks:
+      - back_end_ntw
+    deploy:
+      replicas: 1
+
+  worker:
+    image: dockersamples/examplevotingapp_worker:latest
+    networks:
+      - front_end_ntw
+      - back_end_ntw
+    deploy:
+      replicas: 2
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+networks:
+  front_end_ntw:
+    driver: overlay
+    attachable: true
+  back_end_ntw:
+    driver: overlay
+    attachable: true
+
+volumes:
+  db-data:

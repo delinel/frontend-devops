@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  web:
+    image: nginx:latest
+    restart: always
+    container_name: ionos_nginx
+    ports:
+      - "8000:80"
+    networks:
+      - ionos_network
+    volumes:
+      - ionos_nginx_vol:/usr/share/nginx/html
+
+volumes:
+  ionos_nginx_vol:
+    #source: ionos_nginx_vol
+    #target: /usr/share/nginx/html
+
+networks:
+  ionos_network:
+    name: ionos_net
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 192.168.1.0/24
+        gateway: 192.168.1.1

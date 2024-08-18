@@ -1,0 +1,50 @@
+version: "3.8"
+services:
+  frontend-quarkus:
+    image: nginx_frt:v24.8.3
+    restart: always
+    container_name: nginx-frt
+    ports:
+      - "80:80"
+    deploy:
+      resources:
+        limits:         # ressources reservees par appli
+          cpus: '0.1'
+          memory: 500M
+        reservations:   # ressources limites à utiliser par l'appli
+          cpus: '0.01'
+          memory: 300M
+    networks:
+      ionos_network_frt:
+#        ipv4_address: 192.168.1.9
+      ionos_network_appli:
+#        ipv4_address: 10.0.1.9
+    volumes:
+      - /docker/volumes/nginx-frt/conf.d:/etc/nginx/conf.d
+      - logs:/var/log/nginx
+
+# Sous reseau reservé aux applis: 10.0.1.0/24
+networks:
+  ionos_network_appli:
+    name: ionos_net_appli
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 10.0.1.0/24
+        gateway: 10.0.1.1
+# Sous reseau reservé aux frontaux: 192.168.1.0/24
+  ionos_network_frt:
+    name: ionos_net_frt
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 192.168.1.0/24
+        gateway: 192.168.1.1
+
+volumes:
+  logs:
+    driver: local
+    driver_opts:
+      type: none
+      device: /docker/volumes/nginx-frt/logs
+      o: bind

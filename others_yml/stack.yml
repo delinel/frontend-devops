@@ -1,0 +1,76 @@
+version: "3"
+services:
+  vote:
+    image: dockersamples/examplevotingapp_vote:before
+#    container_name: votec
+    # restart_policy:
+    #   condition: on-failure
+    ports:
+      - "5000:80"
+    deploy:
+      replicas: 5
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+    networks:
+      - front_end_ntw
+
+  redis:
+    image: redis:3.2
+#    container_name: redisc
+    # restart_policy:
+    #   condition: on-failure
+    deploy:
+      replicas: 5
+    networks:
+      - front_end_ntw
+
+  worker:
+    image: dockersamples/examplevotingapp_worker:latest
+#    container_name: workerc
+    # restart_policy:
+    #   condition: on-failure
+    deploy:
+      replicas: 1
+    networks:
+      - front_end_ntw
+      - back_end_ntw
+
+  db:
+#    container_name: dbc
+    image: postgres:9.4
+    deploy:
+      replicas: 1
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    # restart_policy:
+    #   condition: on-failure
+    networks:
+      - back_end_ntw
+    volumes:
+      - volus:/var/lib/postgresql/data
+
+  result:
+    image: dockersamples/examplevotingapp_result:before
+#    container_name: resultc
+    # restart_policy:
+    #   condition: on-failure
+    deploy:
+      replicas: 1
+    ports:
+      - "5001:80"
+    networks:
+      - back_end_ntw
+
+networks:
+  back_end_ntw:
+    name: back_end_ntw
+    driver: overlay
+  front_end_ntw:
+    name: front_end_ntw
+    driver: overlay
+
+volumes:
+  volus:

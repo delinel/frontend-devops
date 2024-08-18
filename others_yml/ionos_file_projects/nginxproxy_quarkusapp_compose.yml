@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+  frontend-quarkus:
+    image: nginx_proxy_quarkus:v24.8.1
+    restart: always
+    container_name: nginx-frt
+    ports:
+      - "80:80"
+    networks:
+      ionos_network_frt:
+        ipv4_address: 192.168.1.9
+
+  quarkus_app:
+    image: quarkus:v24.8.2
+    restart: always
+    container_name: quarkus_appli
+    ports:
+      - "8080:8080"
+    networks:
+      ionos_network_frt:
+        ipv4_address: 192.168.1.10
+
+networks:
+  ionos_network_frt:
+    name: ionos_net_frt
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 192.168.1.0/24
+        gateway: 192.168.1.1
+

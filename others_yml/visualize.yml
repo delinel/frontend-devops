@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  dashboard:
+    image: herloct/swarm-visualizer:add-alpine-base
+    ports:
+      - "8000:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
+networks:
+  webnet:

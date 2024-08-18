@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  ip_quarkus:
+    image: quarkus:latest
+    restart: always
+    container_name: quarkus_frontip
+    ports:
+      - "8010:8080"
+    networks:
+      ionos_network_ip:
+        ipv4_address: 192.168.30.30
+  #  volumes:
+  #    - ionos_nginx_vol:/usr/share/nginx/html
+
+#volumes:
+#  ionos_nginx_vol:
+    #source: ionos_nginx_vol
+    #target: /usr/share/nginx/html
+
+networks:
+  ionos_network_ip:
+    name: ionos_net_ip
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 192.168.30.0/24
+        gateway: 192.168.30.1

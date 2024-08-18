@@ -1,0 +1,26 @@
+version: "3"
+services:
+  web:
+    image: nginx:latest
+    restart: always
+    container_name: mynginx
+    ports:
+      - "8000:80"
+    networks:
+      - mynet
+    volumes:
+      - myvol:/usr/share/nginx/html
+
+volumes:
+  myvol:
+    #    source: myvol
+    #    target: /usr/share/nginx/html
+
+networks:
+  mynet:
+    name: mynet
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 192.168.1.0/24
+        gateway: 192.168.1.1
