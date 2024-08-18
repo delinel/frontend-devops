@@ -1,0 +1,20 @@
+# Mon image de base
+FROM nginx:alpine
+
+# Labels
+LABEL version=v24.8.3
+LABEL Author="delinel"
+
+# Install basic tools
+ARG SHELL_USER=/bin/bash
+RUN apk update && \
+    apk upgrade && \
+    apk add bash && \
+    apk add sudo
+RUN echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+# Define and create user app
+ARG APP_USER=admin
+RUN adduser -h /home/${APP_USER} -s ${SHELL_USER} -G wheel -u 1001 ${APP_USER} -D
+RUN mkdir -p /etc/nginx/sites-available
+RUN mkdir -p /etc/nginx/sites-enable
