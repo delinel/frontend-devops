@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  quarkus_app:
+  frontend_app:
     #image: delinel/ionos_devops:quarkus_app_v24.8.3 ==> image dans le repo en ligne
     image: delinel/devops:fronted-app-1.0.0
     restart: always
