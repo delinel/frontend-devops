@@ -1,0 +1,29 @@
+# Mon image de base
+FROM eclipse-temurin:17-jre-alpine
+
+# Labels
+LABEL version=v24.8.3
+LABEL Author="delinel"
+
+# Variable de version du fichier jar
+ARG VERSION
+
+# Répertoire de travail
+WORKDIR /myfront-app
+
+# Define and create user app
+ARG APP_USER=appdev
+ARG SHELL_USER=/bin/bash
+RUN apk update && apk upgrade && apk add bash && apk add sudo
+RUN echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN adduser -h /home/${APP_USER} -s ${SHELL_USER} -G wheel -u 1001 ${APP_USER} -D
+
+# Add the project in the folder
+USER ${APP_USER}
+COPY --chown=${APP_USER}:${APP_USER}  ./target/code-frontend-${VERSION}-SNAPSHOT-runner.jar code-frontend.jar
+
+# Exposer le port de l'application
+EXPOSE 8080
+
+# Démarrer l'application
+ENTRYPOINT ["java", "-jar", "code-frontend.jar"]
