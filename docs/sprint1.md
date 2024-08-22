@@ -49,6 +49,7 @@ ssh dely@192.168.1.80
 vi ~/.bashrc
 ```
 - Add the variables
+```
 PS1='\[\033[00m\][\[\033[32m\]\u\[\033[36m\]@\[\033[33m\]\h\[\033[00m\]:\[\033[36m\]\w\[\033[00m\]]\[\033[00m\]\$' ==> prompt color
 export HISTTIMEFORMAT="%F %T : " ==> horodatage of commands
 ```
