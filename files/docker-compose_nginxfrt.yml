@@ -17,7 +17,7 @@ services:
           memory: 300M
     networks:
       ionos_network_frt:
-#        ipv4_address: 192.168.1.9
+#        ipv4_address: 192.168.100.9
       ionos_network_appli:
 #        ipv4_address: 10.0.1.9
     volumes:
@@ -33,14 +33,14 @@ networks:
       config:
       - subnet: 10.0.1.0/24
         gateway: 10.0.1.1
-# Sous reseau reservé aux frontaux: 192.168.1.0/24
+# Sous reseau reservé aux frontaux: 192.168.100.0/24
   ionos_network_frt:
     name: ionos_net_frt
     driver: bridge
     ipam:
       config:
-      - subnet: 192.168.1.0/24
-        gateway: 192.168.1.1
+      - subnet: 192.168.100.0/24
+        gateway: 192.168.100.1
 
 volumes:
   logs:
