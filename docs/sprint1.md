@@ -49,8 +49,10 @@ ssh dely@192.168.1.80
 vi ~/.bashrc
 ```
 - Add the variables
+```
 PS1='\[\033[00m\][\[\033[32m\]\u\[\033[36m\]@\[\033[33m\]\h\[\033[00m\]:\[\033[36m\]\w\[\033[00m\]]\[\033[00m\]\$' ==> prompt color
 export HISTTIMEFORMAT="%F %T : " ==> horodatage of commands
+```
 ```
 source ~/.bashrc
 ```
@@ -64,8 +66,17 @@ ssh-keygen -t rsa -b 4096
 **Install java 17**
 ```
 sudo yum install java-17-openjdk
+```
+- Content of file /etc/profile.d/java.sh
+```
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-17.0.6.0.9-0.3.ea.el8.x86_64
 export PATH="$JAVA_HOME/bin:$PATH"
+```
+- Set java environment variables
+```
+sudo chmod +x /etc/profile.d/java.sh
+source /etc/profile.d/java.sh
+java --version
 ```
 
 **Install maven**
@@ -118,4 +129,29 @@ sudo systemctl status docker
 docker --version
 ```
 
-## Etape 1
+## Etape 2: Clone project through ssh and build artefact
+
+- Copy the public key in github setting
+```
+cat ~/.ssh/id_rsa.pub
+```
+Github > Profile > Settings > SSH & GPG Keys > New SSH Key
+
+![alt text](image.png)
+
+- Clone the project
+```
+sudo yum install git
+cd /projects
+git clone git@github.com:delinel/frontend-devops.git
+cd frontend-devops
+```
+- Build artefact
+```
+mvn clean package
+```
+
+
+
+
+
