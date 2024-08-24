@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  nexus_app:
+    image: sonatype/nexus3:3.71.0-java17-alpine
+    restart: always
+    container_name: nexus-app
+#    deploy:
+#      resources:
+#        limits: 
+#          cpus: '2'
+#          memory: 2g
+#        reservations:
+#          cpus: '1'
+#          memory: 1512m
+    ports:
+      - "8081:8081"
+    volumes:
+      - "/nexus/data:/nexus-data"
