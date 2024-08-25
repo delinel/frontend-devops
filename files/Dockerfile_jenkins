@@ -1,0 +1,25 @@
+# Mon image de base
+FROM jenkins/jenkins:lts-jdk17
+
+# Labels
+LABEL version=v24.8.3
+LABEL Author="delinel"
+
+# Define UID and GID for jenkins user
+ARG USER_ID
+ARG GROUP_ID
+
+# Change permissions folder
+USER root
+RUN apt-get update && apt-get install -y sudo && apt-get clean
+RUN groupmod -g ${GROUP_ID} jenkins
+RUN usermod -u ${GROUP_ID} jenkins
+RUN chown -R ${USER_ID}:${GROUP_ID} /var/jenkins_home
+RUN echo "jenkins ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+# Drop back to the regular jenkins user
+USER jenkins
+
+# Exposer le port de l'application
+EXPOSE 8080
+EXPOSE 50000
