@@ -1,20 +1,16 @@
 version: '3.8'
 services:
   jenkins:
-    image: jenkins/jenkins:lts-jdk17
+    image: delinel/devops:myjenkins-1.0.0
     restart: always
     container_name: jenkins-app
     ports:
-      - "8082:8080"
+      - "8084:8080"
       - "50000:50000"
-    user: "1002:1002"
     environment:
       - JENKINS_OPTS=--prefix=/jenkins
     volumes:
       - "/jenkins/data:/var/jenkins_home"
-      - "/etc/group:/etc/group:ro"
-      - "/etc/passwd:/etc/passwd:ro"
-      - "/etc/shadow:/etc/shadow:ro"
 #    deploy:
 #      resources:
 #        limits: 
