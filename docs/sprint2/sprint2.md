@@ -73,7 +73,7 @@ vi files/docker-compose_jenkins.yml
 - Run container through compose file
 ```
 docker compose -f files/docker-compose_jenkins.yml up -d
-sudo firewall-cmd --permanent --add-port=8082/tcp
+sudo firewall-cmd --permanent --add-port=8084/tcp
 sudo firewall-cmd --reload
 ```
 
@@ -81,6 +81,5 @@ sudo firewall-cmd --reload
 ```
 docker inspect jenkins-app -f "{{ .Mounts }}"
 ```
-**open nexus on browser http://192.168.1.80:8082 or http://192.168.1.80:8082/jenkins (if 404 Not found)**
+**open nexus on browser http://192.168.1.80:8084 or http://192.168.1.80:8082/jenkins (if 404 Not found)**
 - Authenticate with admin account, the default admin password is in the file **/jenkins/data/secrets/initialAdminPassword**
-- Create two repositories **Release** and **Snapshot**

@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   frontend_app:
     #image: delinel/ionos_devops:quarkus_app_v24.8.3 ==> image dans le repo en ligne

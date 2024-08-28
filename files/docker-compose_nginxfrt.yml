@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   nginx-frontend:
     image: delinel/devops:nginx-frt-1.0.0
