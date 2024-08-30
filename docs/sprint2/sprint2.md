@@ -81,5 +81,31 @@ sudo firewall-cmd --reload
 ```
 docker inspect jenkins-app -f "{{ .Mounts }}"
 ```
-**open nexus on browser http://192.168.1.80:8084 or http://192.168.1.80:8082/jenkins (if 404 Not found)**
+**open nexus on browser http://192.168.1.80:8084 or http://192.168.1.80:8084/jenkins (if 404 Not found)**
 - Authenticate with admin account, the default admin password is in the file **/jenkins/data/secrets/initialAdminPassword**
+- Install necessary plugins **(nexus-artifact-uploader, blue ocean, maven, java jdk, git, pipeline, rbac stratégies, metrics, cloudbees, ssh, Docker Pipeline, ...)**
+- Configure tools (Maven, ...)
+- Create users and roles https://medium.com/@srghimire061/how-to-manage-users-and-roles-in-jenkins-fe6a7a8be344#:~:text=Log%20in%3A%20enter%20your%20username,then%20click%20Create%20User%20button.
+- Create user in Nexus who make upload of artifact
+- we should add a Jenkins credential of the kind "Username with password" with a valid login to our Nexus instance, and let's give it an ID of "nexus-credentials."
+- We can create two types of job to run pieline (**Build Maven Project** or **Pipeline**)
+
+### Build Maven Project
+- Source Code Management
+![image](https://github.com/user-attachments/assets/bb356c9e-61ee-42ec-a676-4a981e99e7c8)
+
+- Build
+![image](https://github.com/user-attachments/assets/fbc4f48a-73cf-4792-9298-41b2693a28aa)
+
+- Post Steps
+![image](https://github.com/user-attachments/assets/b9c47a0a-97fe-45da-8d30-f080fb0cc131)
+
+![image](https://github.com/user-attachments/assets/aa6ad722-1a40-4afb-b35a-1c0d579fe83b)
+
+
+### Pipeline
+- Just write the Pipeline script
+
+
+
+source url: https://dzone.com/articles/jenkins-publish-maven-artifacts-to-nexus-oss-using
