@@ -105,7 +105,9 @@ docker inspect jenkins-app -f "{{ .Mounts }}"
 
 ### Pipeline
 - Just write the Pipeline script
+https://github.com/delinel/frontend-devops/blob/develop/files/Jenkinsfile
 
 
-
+  
+  
 source url: https://dzone.com/articles/jenkins-publish-maven-artifacts-to-nexus-oss-using
