@@ -111,3 +111,47 @@ https://github.com/delinel/frontend-devops/blob/develop/files/Jenkinsfile
   
   
 source url: https://dzone.com/articles/jenkins-publish-maven-artifacts-to-nexus-oss-using
+
+## Etape 3: Upload artifact trough Maven
+- Edit the **pom.xml** file with the following settings
+```
+  <distributionManagement>
+    <repository>
+      <id>nexus-rele</id>
+      <name>Releases</name>
+      <url>http://192.168.1.80:8081/repository/Release-rep/</url>
+    </repository>
+    <snapshotRepository>
+      <id>nexus-snap</id>
+      <name>Snapshot</name>
+      <url>http://192.168.1.80:8081/repository/Snapshot-rep/</url>
+    </snapshotRepository>
+  </distributionManagement>
+```
+where
+- **id**: custum repository name
+- **name**: type of repository
+- **url**: nexus url repository
+  
+- Edit or create **~/.m2/settings.xml** file to define credentials user who upload file in Nexus
+```
+<settings>
+  <servers>
+    <server>
+        <id>nexus-rele</id>
+        <username>user-nexus</username>
+        <password>xxxxxxxx</password>
+    </server>
+    <server>
+        <id>nexus-snap</id>
+        <username>user-nexus</username>
+        <password>xxxxxxxx</password>
+    </server>
+  </servers>
+</settings>
+```
+- Test upload trough Maven
+```
+mvn deploy
+```
+Browse Nexus Repository and check new artifact
